@@ -13,13 +13,15 @@
 				const seUrl = 'https://data.internetstiftelsen.se/bardate_domains.json';
 				const nuUrl = 'https://data.internetstiftelsen.se/bardate_domains_nu.json';
 				result = await Promise.all(
-					[seUrl, nuUrl].map((url) =>
-						fetch(url)
-							.then((r) => (r.json()))
-							.catch((error) => error)
-					).flat()
+					[seUrl, nuUrl]
+						.map((url) =>
+							fetch(url)
+								.then((r) => r.json())
+								.catch((error) => error)
+						)
+						.flat()
 				);
-				result = (result[0].data).concat(result[1].data)
+				result = result[0].data.concat(result[1].data);
 			}
 
 			if (result.length > 0) {
@@ -42,6 +44,7 @@
 
 <script lang="ts">
 	export let domains: DomainData[];
+	export let filterDomain = "Alla";
 </script>
 
 <svelte:head>
@@ -49,18 +52,58 @@
 </svelte:head>
 
 <div>
-	<ul>
+	<h1>Hitta domäner</h1>
+	<div>
+		<h2>Filterfunktioner</h2>
+		<fieldset>
+			<legend>Välj domän filter</legend>
+			<div>
+				<label for="choice0">Alla</label>
+				<input
+				bind:group={filterDomain}
+				value={"Alla"}
+				type="radio"
+				id="choice0"
+				name="site"
+				checked
+			  />
+			  <input
+				bind:group={filterDomain}
+				value={".se"}
+				type="radio"
+				id="choice1"
+				name="site"
+			  />
+			  <label for="choice1">.se</label>
+			  <input
+				bind:group={filterDomain}
+				value={".nu"}
+				type="radio"
+				id="choice2"
+				name="site"
+			  />
+			  <label for="choice2">.nu</label>
+			</div>
+		  </fieldset>
+	</div>
+	<table>
+		<caption>Domäner och deras releasedatum</caption>
+		<tr>
+			<th scope="col"><button>Domännamn</button></th>
+			<th scope="col"><button>Releasedatum</button></th>
+		</tr>
 		{#each domains.slice(0, 10) as domain}
-			<li>
-				<span>
+			<tr>
+				<td>
 					{domain.name}
-				</span>
-				<span>
+				</td>
+				<td>
 					{domain.release_at}
-				</span>
-			</li>
+				</td>
+			</tr>
 		{/each}
-	</ul>
+	</table>
+	<ul />
 </div>
 
 <style>
