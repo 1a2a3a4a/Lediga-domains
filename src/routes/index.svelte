@@ -54,7 +54,6 @@
 <div>
 	<h1>Hitta domäner</h1>
 	<div>
-		<h2>Filterfunktioner</h2>
 		<fieldset>
 			<legend>Välj domän filter</legend>
 			<div>

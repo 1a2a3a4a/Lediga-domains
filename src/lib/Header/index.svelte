@@ -5,13 +5,18 @@
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
-			<img src={logo} alt="SvelteKit" />
-		</a>
+			<img src={logo} alt="" />
 	</div>
 
-	<nav>
-	
+	<nav aria-label="huvudmeny">
+		<ul>
+			<li>
+				<a href="/">Hem</a>
+			</li>
+			<li>
+				<a href="/about">Om webbplatsen</a>
+			</li>
+		</ul>
 	</nav>
 
 	<div class="corner">
