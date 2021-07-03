@@ -8,5 +8,5 @@ export interface Locals {
 
 export interface DomainData {
 	name : string;
-	releaseDate : Date;
+	release_at : Date;
 }
