@@ -5,3 +5,8 @@
 export interface Locals {
 	userid: string;
 }
+
+export interface DomainData {
+	name : string;
+	releaseDate : Date;
+}
