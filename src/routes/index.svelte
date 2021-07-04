@@ -45,6 +45,8 @@
 <script lang="ts">
 	export let domains: DomainData[];
 	export let filterDomain = "Alla";
+	$: filteredDomains = filterDomain == "Alla" ? domains : domains.filter(x => x.name.includes(filterDomain));
+	
 </script>
 
 <svelte:head>
@@ -91,7 +93,7 @@
 			<th scope="col"><button>Domännamn</button></th>
 			<th scope="col"><button>Releasedatum</button></th>
 		</tr>
-		{#each domains.slice(0, 10) as domain}
+		{#each filteredDomains.slice(0, 10) as domain}
 			<tr>
 				<td>
 					{domain.name}
