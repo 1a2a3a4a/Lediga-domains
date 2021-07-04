@@ -46,16 +46,16 @@
 	export let domains: DomainData[];
 	export let filterDomain = 'Alla';
 	export let sortNameclick = false;
-	export let sortDomainClick = false;
+	export let sortReleaseDateClick = false;
 	let filteredDomains = domains;
 	$: filteredDomains =
 		filterDomain == 'Alla' ? domains : domains.filter((x) => x.name.includes(filterDomain));
 
 	function sortDate() {
-		filteredDomains = sortDomainClick
+		filteredDomains = sortReleaseDateClick
 			? filteredDomains.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime())
 			: filteredDomains.sort((a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime());
-		sortDomainClick = !sortDomainClick;
+		sortReleaseDateClick = !sortReleaseDateClick;
 	}
 
 	function sortName() {
@@ -103,8 +103,8 @@
 	<table>
 		<caption>Domäner och deras releasedatum</caption>
 		<tr>
-			<th scope="col"><button on:click={sortName}>Domännamn</button></th>
-			<th scope="col"><button on:click={sortDate}>Releasedatum</button></th>
+			<th scope="col"><button class="filter-button" on:click={sortName}><span class="{sortNameclick ? 'filter-button-up' : 'filter-button-down'}">Domännamn</span></button></th>
+			<th scope="col"><button class="filter-button" on:click={sortDate}><span class="{sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}">Releasedatum</span></button></th>
 		</tr>
 		{#each filteredDomains.slice(0, 10) as domain}
 			<tr>
@@ -121,4 +121,60 @@
 </div>
 
 <style>
+	.filter-button {
+		width: 100%;
+		border: none;
+		padding: 0.1rem;
+		background: none;
+		cursor: pointer;
+		color: white;
+		font-weight: bold;
+	}
+
+	.filter-button:hover {
+		text-decoration: underline;
+	}
+	.filter-button:focus {
+		text-decoration: underline;
+	}
+	.filter-button:focus:hover {
+		background-color: #2d2d2d;
+	}
+
+	.filter-button-up::after {
+		content: '\1F815';
+		margin-left: 0.2rem;
+	}
+
+	.filter-button-down::after {
+		content: '\1F817';
+		margin-left: 0.2rem;
+	}
+
+	fieldset {
+		border: 5px solid white;
+    	border-style: dotted;
+
+		
+	}
+	label {
+			font-size: 1.2rem;
+		}
+	table {
+		width: 100%;
+		border: 1px solid white;
+		border-radius: 5px;
+	}
+
+	caption {
+		font-size: 1.5rem;
+		margin-bottom: 0.5rem;
+	}
+
+	td {
+		font-size: 1.2rem;
+		padding: 1rem;
+	}
+
+	
 </style>
