@@ -21,7 +21,7 @@
 						)
 						.flat()
 				);
-				result = result[0].data.concat(result[1].data);
+				result = result[0].data.concat(result[1].data)
 			}
 
 			if (result.length > 0) {
@@ -29,7 +29,7 @@
 					status: 200,
 					maxage: 86400,
 					props: {
-						domains: result
+						domains: result.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime())
 					}
 				};
 			}
@@ -53,8 +53,8 @@
 
 	function sortDate() {
 		filteredDomains = sortDomainClick
-			? filteredDomains.sort((a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime())
-			: filteredDomains.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime());
+			? filteredDomains.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime())
+			: filteredDomains.sort((a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime());
 		sortDomainClick = !sortDomainClick;
 	}
 
@@ -68,8 +68,6 @@
 	$: sortName;
 	$: sortDate;
 
-	//init sorting release date
-	sortDate()
 </script>
 
 <svelte:head>
@@ -79,6 +77,10 @@
 <div>
 	<h1>Hitta domäner</h1>
 	<div>
+		<div>
+			<label for="search">Sök på domän</label>
+			<input id="search" type="text" />
+		</div>
 		<fieldset>
 			<legend>Välj domän filter</legend>
 			<div>
