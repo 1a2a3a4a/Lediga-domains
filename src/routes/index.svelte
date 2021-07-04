@@ -44,9 +44,32 @@
 
 <script lang="ts">
 	export let domains: DomainData[];
-	export let filterDomain = "Alla";
-	$: filteredDomains = filterDomain == "Alla" ? domains : domains.filter(x => x.name.includes(filterDomain));
-	
+	export let filterDomain = 'Alla';
+	export let sortNameclick = false;
+	export let sortDomainClick = false;
+	let filteredDomains = domains;
+	$: filteredDomains =
+		filterDomain == 'Alla' ? domains : domains.filter((x) => x.name.includes(filterDomain));
+
+	function sortDate() {
+		filteredDomains = sortDomainClick
+			? filteredDomains.sort((a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime())
+			: filteredDomains.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime());
+		sortDomainClick = !sortDomainClick;
+	}
+
+	function sortName() {
+		filteredDomains = sortNameclick
+			? filteredDomains.sort((a, b) => (a.name < b.name ? 1 : -1))
+			: filteredDomains.sort((a, b) => (a.name > b.name ? 1 : -1));
+		sortNameclick = !sortNameclick;
+	}
+
+	$: sortName;
+	$: sortDate;
+
+	//init sorting release date
+	sortDate()
 </script>
 
 <svelte:head>
@@ -61,37 +84,25 @@
 			<div>
 				<label for="choice0">Alla</label>
 				<input
-				bind:group={filterDomain}
-				value={"Alla"}
-				type="radio"
-				id="choice0"
-				name="site"
-				checked
-			  />
-			  <input
-				bind:group={filterDomain}
-				value={".se"}
-				type="radio"
-				id="choice1"
-				name="site"
-			  />
-			  <label for="choice1">.se</label>
-			  <input
-				bind:group={filterDomain}
-				value={".nu"}
-				type="radio"
-				id="choice2"
-				name="site"
-			  />
-			  <label for="choice2">.nu</label>
+					bind:group={filterDomain}
+					value={'Alla'}
+					type="radio"
+					id="choice0"
+					name="site"
+					checked
+				/>
+				<input bind:group={filterDomain} value={'.se'} type="radio" id="choice1" name="site" />
+				<label for="choice1">.se</label>
+				<input bind:group={filterDomain} value={'.nu'} type="radio" id="choice2" name="site" />
+				<label for="choice2">.nu</label>
 			</div>
-		  </fieldset>
+		</fieldset>
 	</div>
 	<table>
 		<caption>Domäner och deras releasedatum</caption>
 		<tr>
-			<th scope="col"><button>Domännamn</button></th>
-			<th scope="col"><button>Releasedatum</button></th>
+			<th scope="col"><button on:click={sortName}>Domännamn</button></th>
+			<th scope="col"><button on:click={sortDate}>Releasedatum</button></th>
 		</tr>
 		{#each filteredDomains.slice(0, 10) as domain}
 			<tr>
