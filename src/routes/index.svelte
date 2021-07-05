@@ -105,14 +105,18 @@
 		<tr>
 			<th scope="col"><button class="filter-button" on:click={sortName}><span class="{sortNameclick ? 'filter-button-up' : 'filter-button-down'}">Domännamn</span></button></th>
 			<th scope="col"><button class="filter-button" on:click={sortDate}><span class="{sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}">Releasedatum</span></button></th>
+			<th scope="col"><span>Läs mer om siten</span></th>
 		</tr>
 		{#each filteredDomains.slice(0, 10) as domain}
 			<tr>
-				<td>
-					{domain.name}
+				<td class="relative">
+					<a href=//{domain.name} target="_blank">{domain.name}</a>
 				</td>
 				<td>
 					{domain.release_at}
+				</td>
+				<td>
+					<a href=/domain/{domain.name}>Mer info</a>
 				</td>
 			</tr>
 		{/each}
@@ -121,6 +125,9 @@
 </div>
 
 <style>
+	.relative {
+		position: relative;
+	}
 	.filter-button {
 		width: 100%;
 		border: none;
@@ -176,5 +183,6 @@
 		padding: 1rem;
 	}
 
+		
 	
 </style>
