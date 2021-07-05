@@ -84,7 +84,7 @@
 	<h1>Hitta domäner</h1>
 	<div>
 		<div class="search-container">
-			<label for="search">Sök på domän</label>
+			<label class="search-label" for="search">Sök på domän</label>
 			<input bind:value={searchQuery} class="search-input" id="search" type="text" />
 		</div>
 		<fieldset>
@@ -107,7 +107,7 @@
 		</fieldset>
 	</div>
 
-	<table>
+	<table class="domains-table">
 		<caption>Domäner och deras förfallodatum</caption>
 		<tr>
 			<th scope="col"
@@ -143,9 +143,15 @@
 </div>
 
 <style>
+	.domains-table {
+		margin: 1rem 0;
+	}
 	.search-container {
 		padding: 0 10%;
 		margin: 1rem 0;
+	}
+	.search-label {
+		font-size: 1.6rem;
 	}
 	.search-input {
 		width: 100%;
