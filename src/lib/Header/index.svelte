@@ -5,7 +5,7 @@
 
 <header>
 	<div class="corner">
-			<img src={logo} alt="" />
+		<img src={logo} alt="" />
 	</div>
 
 	<nav aria-label="huvudmeny">
@@ -27,7 +27,6 @@
 <style>
 	header {
 		display: flex;
-		justify-content: space-between;
 	}
 
 	.corner {
@@ -52,7 +51,6 @@
 	nav {
 		display: flex;
 		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
 	}
 
 	svg {
@@ -74,8 +72,6 @@
 		justify-content: center;
 		align-items: center;
 		list-style: none;
-		background: var(--background);
-		background-size: contain;
 	}
 
 	li {
@@ -112,4 +108,5 @@
 	a:hover {
 		color: var(--accent-color);
 	}
+
 </style>

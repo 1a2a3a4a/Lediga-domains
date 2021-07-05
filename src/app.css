@@ -42,6 +42,7 @@ p {
 }
 
 a {
+	padding: 0.1rem;
 	color: var(--accent-color);
 	text-decoration: none;
 }
@@ -90,6 +91,13 @@ button {
 
 button:focus:not(:focus-visible) {
 	outline: none;
+}
+
+a:focus {
+	box-shadow: inset 0 0 0 1px white;
+}
+button:focus {
+	box-shadow: inset 0 0 0 1px white;
 }
 
 @media (min-width: 720px) {
