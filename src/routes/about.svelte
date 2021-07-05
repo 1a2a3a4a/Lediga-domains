@@ -19,9 +19,24 @@
 </svelte:head>
 
 <div>
-
+	<h1>Om webbplatsen</h1>
+	<p>
+		Denna webbplats plockar data från <a href="https://internetstiftelsen.se/">internetstiftelsen</a
+		>
+	</p>
+	<p>
+		Data för domäner som kommer att förfallas kommer från deras <a
+			href="https://internetstiftelsen.se/domaner/registrera-ett-domannamn/se-och-nu-domaner-som-snart-kan-bli-lediga/"
+			>data</a
+		>
+	</p>
+	<p>
+		För att hämta data för enskild domän skickas ett POST anrop till <strong
+			>https://internetstiftelsen.se/wp-json/iis/v1/free/whois</strong
+		>
+		där paramatern <code>domain</code> är satt till domännamnet som man söker efter.
+	</p>
 </div>
 
 <style>
-
 </style>

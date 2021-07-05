@@ -108,7 +108,7 @@
 	</div>
 
 	<table>
-		<caption>Domäner och deras releasedatum</caption>
+		<caption>Domäner och deras förfallodatum</caption>
 		<tr>
 			<th scope="col"
 				><button class="filter-button" on:click={sortName}
@@ -119,7 +119,7 @@
 			<th scope="col"
 				><button class="filter-button" on:click={sortDate}
 					><span class={sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}
-						>Releasedatum</span
+						>Förfallodatum</span
 					></button
 				></th
 			>
