@@ -82,6 +82,7 @@
 
 <div>
 	<h1>Hitta domäner</h1>
+	<p>Tabellen visar .se- och .nu-domäner som snart kan bli lediga. Använd sök och andra funktioner för att filtrera och hitta domäner.</p>
 	<div>
 		<div class="search-container">
 			<label class="search-label" for="search">Sök på domän</label>
@@ -113,14 +114,14 @@
 			<th scope="col"
 				><button class="filter-button" on:click={sortName}
 					><span class={sortNameclick ? 'filter-button-up' : 'filter-button-down'}>Domännamn</span
-					></button
+					><span class="sr-only">, sorterad på {sortNameclick ? "stigande" : "fallande"}</span></button
 				></th
 			>
 			<th scope="col"
 				><button class="filter-button" on:click={sortDate}
 					><span class={sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}
 						>Förfallodatum</span
-					></button
+					><span class="sr-only">, sorterad på {sortReleaseDateClick ? "fallande" : "stigande"}</span></button
 				></th
 			>
 			<th scope="col"><span>Läs mer om siten</span></th>
