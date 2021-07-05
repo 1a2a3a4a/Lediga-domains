@@ -21,7 +21,7 @@
 						)
 						.flat()
 				);
-				result = result[0].data.concat(result[1].data)
+				result = result[0].data.concat(result[1].data);
 			}
 
 			if (result.length > 0) {
@@ -29,7 +29,9 @@
 					status: 200,
 					maxage: 86400,
 					props: {
-						domains: result.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime())
+						domains: result.sort(
+							(a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime()
+						)
 					}
 				};
 			}
@@ -44,17 +46,22 @@
 
 <script lang="ts">
 	export let domains: DomainData[];
-	export let filterDomain = 'Alla';
-	export let sortNameclick = false;
-	export let sortReleaseDateClick = false;
+	 let filterDomain = 'Alla';
+	 let sortNameclick = false;
+	 let sortReleaseDateClick = false;
+	let searchQuery = "";
 	let filteredDomains = domains;
 	$: filteredDomains =
 		filterDomain == 'Alla' ? domains : domains.filter((x) => x.name.includes(filterDomain));
 
 	function sortDate() {
 		filteredDomains = sortReleaseDateClick
-			? filteredDomains.sort((a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime())
-			: filteredDomains.sort((a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime());
+			? filteredDomains.sort(
+					(a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime()
+			  )
+			: filteredDomains.sort(
+					(a, b) => new Date(b.release_at).getTime() - new Date(a.release_at).getTime()
+			  );
 		sortReleaseDateClick = !sortReleaseDateClick;
 	}
 
@@ -67,7 +74,6 @@
 
 	$: sortName;
 	$: sortDate;
-
 </script>
 
 <svelte:head>
@@ -77,9 +83,9 @@
 <div>
 	<h1>Hitta domäner</h1>
 	<div>
-		<div>
+		<div class="search-container">
 			<label for="search">Sök på domän</label>
-			<input id="search" type="text" />
+			<input bind:value={searchQuery} class="search-input" id="search" type="text" />
 		</div>
 		<fieldset>
 			<legend>Välj domän filter</legend>
@@ -100,23 +106,35 @@
 			</div>
 		</fieldset>
 	</div>
+
 	<table>
 		<caption>Domäner och deras releasedatum</caption>
 		<tr>
-			<th scope="col"><button class="filter-button" on:click={sortName}><span class="{sortNameclick ? 'filter-button-up' : 'filter-button-down'}">Domännamn</span></button></th>
-			<th scope="col"><button class="filter-button" on:click={sortDate}><span class="{sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}">Releasedatum</span></button></th>
+			<th scope="col"
+				><button class="filter-button" on:click={sortName}
+					><span class={sortNameclick ? 'filter-button-up' : 'filter-button-down'}>Domännamn</span
+					></button
+				></th
+			>
+			<th scope="col"
+				><button class="filter-button" on:click={sortDate}
+					><span class={sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}
+						>Releasedatum</span
+					></button
+				></th
+			>
 			<th scope="col"><span>Läs mer om siten</span></th>
 		</tr>
 		{#each filteredDomains.slice(0, 10) as domain}
 			<tr>
 				<td class="relative">
-					<a href=//{domain.name} target="_blank">{domain.name}</a>
+					<a href="//{domain.name}" target="_blank">{domain.name}</a>
 				</td>
 				<td>
 					{domain.release_at}
 				</td>
 				<td>
-					<a href=/domain/{domain.name}>Mer info</a>
+					<a href="/domain/{domain.name}">Mer info</a>
 				</td>
 			</tr>
 		{/each}
@@ -125,6 +143,15 @@
 </div>
 
 <style>
+	.search-container {
+		padding: 0 10%;
+		margin: 1rem 0;
+	}
+	.search-input {
+		width: 100%;
+		padding: 0.5rem;
+		font-size: 1.5rem;
+	}
 	.relative {
 		position: relative;
 	}
@@ -160,15 +187,9 @@
 
 	fieldset {
 		border: 5px solid white;
-    	border-style: dotted;
-
-		
+		border-style: dotted;
 	}
 	label {
-			font-size: 1.2rem;
-		}
-
-
-		
-	
+		font-size: 1.2rem;
+	}
 </style>
