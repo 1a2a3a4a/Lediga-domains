@@ -27,7 +27,10 @@ import { mapDomainPage } from '$lib/mapper';
 
 			return {
 				status: res.status,
-				error: new Error(`Could not load ${url}`)
+				error: new Error(`Could not load ${url}`),
+                props: {
+                    domain: null
+                }
 			};
 		} else {
 			data = {
@@ -63,6 +66,10 @@ import { mapDomainPage } from '$lib/mapper';
 	import type { DomainPage } from '$lib/types';
 
 	export let domain: DomainPage;
+    function isFish(pet: DomainPage): pet is DomainPage {
+   return (<DomainPage>pet).domain !== undefined;
+}
+
 </script>
 
 <div>
@@ -70,6 +77,11 @@ import { mapDomainPage } from '$lib/mapper';
     <div class="center">För mer information, sök på domänen på 
         <a href="https://internetstiftelsen.se/sok-doman/?domain={domain.domain}">internetstiftelsen</a>
     </div>
+    {#if domain == null}
+         <div>
+            Vi kunde inte ladda datat.
+         </div>
+    {/if}
 	<table>
         <caption>Information om domänen {domain.domain}</caption>
         <tr>
