@@ -7,6 +7,27 @@ export interface Locals {
 }
 
 export interface DomainData {
-	name : string;
-	release_at : Date;
+	name: string;
+	release_at: Date;
+}
+
+export interface DomainPage {
+	state: string;
+	domain: string;
+	holder: string;
+	adminc: string;
+	techc: string;
+	billingc: string;
+	created: string;
+	modified: string;
+	expires: string;
+	transferred: string;
+	deactivationdate: string;
+	date_to_delete: string;
+	date_to_release: string;
+	dnssec: string;
+	registrylock: string;
+	status: string;
+	registrar: string;
+	nserver: string;
 }
