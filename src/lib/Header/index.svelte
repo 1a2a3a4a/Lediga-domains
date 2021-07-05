@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import logo from './svelte-logo.svg';
 </script>
 
 <header>
+	<a class="skip-to-content-link" href="#main"> Skippa till huvudinnehåll </a>
+
 	<div class="corner">
 		<img src={logo} alt="" />
 	</div>
@@ -25,6 +26,21 @@
 </header>
 
 <style>
+	.skip-to-content-link {
+		background-color: var(--bg-color);
+		height: 2rem;
+		left: 50%;
+		padding: 8px;
+		position: absolute;
+		transform: translateY(-110%);
+		transition: transform 0s;
+		text-transform: uppercase;
+	}
+
+	.skip-to-content-link:focus {
+		transform: translateY(0%);
+	}
+
 	header {
 		display: flex;
 	}
@@ -108,5 +124,4 @@
 	a:hover {
 		color: var(--accent-color);
 	}
-
 </style>

@@ -6,6 +6,7 @@
 	--font-mono: 'Fira Mono', monospace;
 	--pure-white: #ffffff;
 	--primary-color: #b9c6d2;
+	--bg-color: #121212;
 	--secondary-color: #d0dde9;
 	--tertiary-color: #edf0f8;
 	--accent-color: #ff3e00;
@@ -19,8 +20,7 @@
 body {
 	min-height: 100vh;
 	margin: 0;
-	background-color: var(--primary-color);
-	background-color: #121212;
+	background-color: var(--bg-color);
 	color: var(--pure-white);
 }
 
@@ -119,4 +119,30 @@ caption {
 td {
 	font-size: 1.2rem;
 	padding: 1rem;
+}
+
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+	-webkit-clip-path: inset(50%) !important;
+		clip-path: inset(50%) !important;  /* 2 */
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;            /* 3 */
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+	clip: auto !important;
+	-webkit-clip-path: none !important;
+		clip-path: none !important;
+	height: auto !important;
+	margin: auto !important;
+	overflow: visible !important;
+	width: auto !important;
+	white-space: normal !important;
 }
