@@ -66,5 +66,89 @@ import { mapDomainPage } from '$lib/mapper';
 </script>
 
 <div>
-	{domain}
+    <h1>Domäninformation</h1>
+    <div class="center">För mer information, sök på domänen på 
+        <a href="https://internetstiftelsen.se/sok-doman/?domain={domain.domain}">internetstiftelsen</a>
+    </div>
+	<table>
+        <caption>Information om domänen {domain.domain}</caption>
+        <tr>
+            <th scope="row">Domännamn</th>
+            <td>{domain.domain}</td>
+        </tr>
+        <tr>
+            <th scope="row">Innehavare (kontakt-ID)
+            </th>
+            <td>{domain.holder}</td>
+        </tr>
+        <tr>
+            <th scope="row">Administrativ kontakt (kontakt-ID)</th>
+            <td>{domain.adminc}</td>
+        </tr>
+        <tr>
+            <th scope="row">Teknisk kontakt (kontakt-ID)	</th>
+            <td>{domain.techc}</td>
+        </tr>
+        <tr>
+            <th scope="row">Avimottagare (kontakt-ID)</th>
+            <td>{domain.billingc}</td>
+        </tr>
+        <tr>
+            <th scope="row">Domänstatus</th>
+            <td>{domain.state}</td>
+        </tr>
+        <tr>
+            <th scope="row">Skapad
+            </th>
+            <td>{domain.created}</td>
+        </tr>
+        <tr>
+            <th scope="row">Senast ändrad
+            </th>
+            <td>{domain.modified}</td>
+        </tr>
+        <tr>
+            <th scope="row">Förfallodatum
+            </th>
+            <td>{domain.expires}</td>
+        </tr>
+        <tr>
+            <th scope="row">Deaktiveringsdatum
+            </th>
+            <td>{domain.deactivationdate}</td>
+        </tr>
+        <tr>
+            <th scope="row">Avregistreringsdatum</th>
+            <td>{domain.date_to_delete}</td>
+        </tr>
+        <tr>
+            <th scope="row">Datum för frisläppande
+            </th>
+            <td>{domain.date_to_release}</td>
+        </tr>
+        <tr>
+            <th scope="row">Namnserver
+            </th>
+            <td>{domain.nserver}</td>
+        </tr>
+        <tr>
+            <th scope="row">DNSSEC</th>
+            <td>{domain.dnssec}</td>
+        </tr>
+        <tr>
+            <th scope="row">Status</th>
+            <td>{domain.status}</td>
+        </tr>
+        <tr>
+            <th scope="row">Registrar</th>
+            <td>{domain.registrar}</td>
+        </tr>
+       
 </div>
+
+
+<style>
+    .center {
+        text-align: center;
+    }
+</style>

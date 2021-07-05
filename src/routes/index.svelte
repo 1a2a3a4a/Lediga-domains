@@ -167,21 +167,7 @@
 	label {
 			font-size: 1.2rem;
 		}
-	table {
-		width: 100%;
-		border: 1px solid white;
-		border-radius: 5px;
-	}
 
-	caption {
-		font-size: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	td {
-		font-size: 1.2rem;
-		padding: 1rem;
-	}
 
 		
 	
