@@ -10,7 +10,7 @@ class DataCache {
 	async fetchData() {
 		let result;
 		if (dev) {
-            this.domainData = data.map(x => ({name: x.name, release_at: new Date(x.release_at)}));
+			this.domainData = data.map((x) => ({ name: x.name, release_at: new Date(x.release_at) }));
 		} else {
 			const seUrl = 'https://data.internetstiftelsen.se/bardate_domains.json';
 			const nuUrl = 'https://data.internetstiftelsen.se/bardate_domains_nu.json';
@@ -23,7 +23,7 @@ class DataCache {
 					)
 					.flat()
 			);
-            this.domainData = result[0].data.concat(result[1].data);
+			this.domainData = result[0].data.concat(result[1].data);
 		}
 	}
 }

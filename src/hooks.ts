@@ -18,10 +18,9 @@ export const handle: Handle = async ({ request, resolve }) => {
 		response.headers['set-cookie'] = `userid=${request.locals.userid}; Path=/; HttpOnly`;
 	}
 
-	if(DataCache.domainData.length <= 0) {
-		console.log("hej")
+	if (DataCache.domainData.length <= 0) {
 		await DataCache.fetchData();
 	}
-	
+
 	return response;
 };
