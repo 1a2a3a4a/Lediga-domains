@@ -8,7 +8,7 @@ export interface Locals {
 
 export interface DomainData {
 	name: string;
-	release_at: Date;
+	release_at: string;
 }
 
 export interface DomainPage {

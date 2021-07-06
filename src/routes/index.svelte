@@ -1,10 +1,11 @@
 <script context="module" lang="ts">
 	import type { DomainData } from '$lib/types';
 	export const prerender = true;
-
+	const start = 0;
+	const end = 10;
 	export async function load({ page, fetch, session, context }) {
 		try {
-			const res = await fetch('/domains.json?startIndex=0&endIndex=20');
+			const res = await fetch(`/domains.json?startIndex=${start}&endIndex=${end}`);
 			if (res.ok) {
 				const data = await res.json();
 				if (data.length > 0) {
@@ -12,9 +13,9 @@
 						status: 200,
 						maxage: 86400,
 						props: {
-							domains: data.sort(
-								(a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime()
-							)
+							domains: data,
+							start: start,
+							end: end
 						}
 					};
 				}
@@ -30,6 +31,8 @@
 
 <script lang="ts">
 	export let domains: DomainData[];
+	export let start: number;
+	export let end: number;
 	let filterDomain = 'Alla';
 	let sortNameclick = false;
 	let sortReleaseDateClick = false;
@@ -56,8 +59,15 @@
 		sortNameclick = !sortNameclick;
 	}
 
-	$: sortName;
-	$: sortDate;
+	async function loadMore() {
+		start += 10;
+		end += 10;
+		const res = await fetch(`/domains.json?startIndex=${start}&endIndex=${end}`);
+		if (res.ok) {
+			const data = await res.json()
+			filteredDomains = filteredDomains.concat(data);
+		}
+	}
 </script>
 
 <svelte:head>
@@ -130,7 +140,7 @@
 			</tr>
 		{/each}
 	</table>
-	<ul />
+	<button on:click={loadMore}>Ladda fler</button>
 </div>
 
 <style>
