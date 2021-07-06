@@ -46,10 +46,10 @@
 
 <script lang="ts">
 	export let domains: DomainData[];
-	 let filterDomain = 'Alla';
-	 let sortNameclick = false;
-	 let sortReleaseDateClick = false;
-	let searchQuery = "";
+	let filterDomain = 'Alla';
+	let sortNameclick = false;
+	let sortReleaseDateClick = false;
+	let searchQuery = '';
 	let filteredDomains = domains;
 	$: filteredDomains =
 		filterDomain == 'Alla' ? domains : domains.filter((x) => x.name.includes(filterDomain));
@@ -82,8 +82,11 @@
 
 <div>
 	<h1>Hitta domäner</h1>
-	<p>Tabellen visar .se- och .nu-domäner som snart kan bli lediga. Använd sök och andra funktioner för att filtrera och hitta domäner.</p>
-	<div>
+	<p>
+		Tabellen visar .se- och .nu-domäner som snart kan bli lediga. Använd sök och andra funktioner
+		för att filtrera och hitta domäner.
+	</p>
+	<div class="options-container">
 		<div class="search-container">
 			<label class="search-label" for="search">Sök på domän</label>
 			<input bind:value={searchQuery} class="search-input" id="search" type="text" />
@@ -114,14 +117,17 @@
 			<th scope="col"
 				><button class="filter-button" on:click={sortName}
 					><span class={sortNameclick ? 'filter-button-up' : 'filter-button-down'}>Domännamn</span
-					><span class="sr-only">, sorterad på {sortNameclick ? "stigande" : "fallande"}</span></button
+					><span class="sr-only">, sorterad på {sortNameclick ? 'stigande' : 'fallande'}</span
+					></button
 				></th
 			>
 			<th scope="col"
 				><button class="filter-button" on:click={sortDate}
 					><span class={sortReleaseDateClick ? 'filter-button-down' : 'filter-button-up'}
 						>Förfallodatum</span
-					><span class="sr-only">, sorterad på {sortReleaseDateClick ? "fallande" : "stigande"}</span></button
+					><span class="sr-only"
+						>, sorterad på {sortReleaseDateClick ? 'fallande' : 'stigande'}</span
+					></button
 				></th
 			>
 			<th scope="col"><span>Läs mer om siten</span></th>
@@ -144,6 +150,12 @@
 </div>
 
 <style>
+	.options-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+	}
 	.domains-table {
 		margin: 1rem 0;
 	}
