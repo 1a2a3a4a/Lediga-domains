@@ -1,4 +1,4 @@
-import dataCache from '$lib/dataCache';
+import dataCache from '$lib/dataCacheSingleton';
 
 // GET /todos.json
 export const get = (request) => {
