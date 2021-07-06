@@ -64,8 +64,21 @@
 		end += 10;
 		const res = await fetch(`/domains.json?startIndex=${start}&endIndex=${end}`);
 		if (res.ok) {
-			const data = await res.json()
+			const data = await res.json();
 			filteredDomains = filteredDomains.concat(data);
+		}
+	}
+
+	async function autoComplete(q) {
+		if (q.length > 1) {
+			const res = await fetch(`/domains/autocomplete.json?q=${searchQuery}`);
+			if (res.ok) {
+				const data = await res.json();
+				filteredDomains = data;
+			}
+		} else {
+			//reset
+			filteredDomains = domains;
 		}
 	}
 </script>
@@ -83,7 +96,7 @@
 	<div class="options-container">
 		<div class="search-container">
 			<label class="search-label" for="search">Sök på domän</label>
-			<input bind:value={searchQuery} class="search-input" id="search" type="text" />
+			<input on:keyup={() => autoComplete(searchQuery)} bind:value={searchQuery} class="search-input" id="search" type="search" />
 		</div>
 		<fieldset>
 			<legend>Välj domän filter</legend>
