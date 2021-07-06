@@ -1,7 +1,7 @@
 import cookie from 'cookie';
 import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
-
+import DataCache from './lib/dataCache';
 export const handle: Handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 	request.locals.userid = cookies.userid || uuid();
@@ -10,7 +10,6 @@ export const handle: Handle = async ({ request, resolve }) => {
 	if (request.query.has('_method')) {
 		request.method = request.query.get('_method').toUpperCase();
 	}
-
 	const response = await resolve(request);
 
 	if (!cookies.userid) {
@@ -19,5 +18,10 @@ export const handle: Handle = async ({ request, resolve }) => {
 		response.headers['set-cookie'] = `userid=${request.locals.userid}; Path=/; HttpOnly`;
 	}
 
+	if(DataCache.domainData.length <= 0) {
+		console.log("hej")
+		await DataCache.fetchData();
+	}
+	
 	return response;
 };

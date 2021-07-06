@@ -1,39 +1,23 @@
 <script context="module" lang="ts">
-	import { dev } from '$app/env';
 	import type { DomainData } from '$lib/types';
-	import { data } from './domains/dev-data';
 	export const prerender = true;
 
 	export async function load({ page, fetch, session, context }) {
-		let result = [];
 		try {
-			if (dev) {
-				result = data;
-			} else {
-				const seUrl = 'https://data.internetstiftelsen.se/bardate_domains.json';
-				const nuUrl = 'https://data.internetstiftelsen.se/bardate_domains_nu.json';
-				result = await Promise.all(
-					[seUrl, nuUrl]
-						.map((url) =>
-							fetch(url)
-								.then((r) => r.json())
-								.catch((error) => error)
-						)
-						.flat()
-				);
-				result = result[0].data.concat(result[1].data);
-			}
-
-			if (result.length > 0) {
-				return {
-					status: 200,
-					maxage: 86400,
-					props: {
-						domains: result.sort(
-							(a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime()
-						)
-					}
-				};
+			const res = await fetch('/domains.json?startIndex=0&endIndex=20');
+			if (res.ok) {
+				const data = await res.json();
+				if (data.length > 0) {
+					return {
+						status: 200,
+						maxage: 86400,
+						props: {
+							domains: data.sort(
+								(a, b) => new Date(a.release_at).getTime() - new Date(b.release_at).getTime()
+							)
+						}
+					};
+				}
 			}
 		} catch (error) {
 			return {
@@ -132,7 +116,7 @@
 			>
 			<th scope="col"><span>Läs mer om siten</span></th>
 		</tr>
-		{#each filteredDomains.slice(0, 10) as domain}
+		{#each filteredDomains as domain}
 			<tr>
 				<td class="relative">
 					<a href="//{domain.name}" target="_blank">{domain.name}</a>
