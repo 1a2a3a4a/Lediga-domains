@@ -176,13 +176,14 @@
 		cursor: pointer;
 		color: white;
 		font-weight: bold;
+		text-decoration: underline;
 	}
 
 	.filter-button:hover {
-		text-decoration: underline;
+		color: var(--accent-color);
 	}
 	.filter-button:focus {
-		text-decoration: underline;
+		color: var(--accent-color);
 	}
 	.filter-button:focus:hover {
 		background-color: #2d2d2d;

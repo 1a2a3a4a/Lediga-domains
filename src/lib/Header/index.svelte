@@ -112,6 +112,7 @@
 		height: 100%;
 		align-items: center;
 		padding: 0 1em;
+		margin: 0 0.5rem;
 		color: var(--heading-color);
 		font-weight: 700;
 		font-size: 0.8rem;
@@ -119,6 +120,7 @@
 		letter-spacing: 10%;
 		text-decoration: none;
 		transition: color 0.2s linear;
+		border-bottom: 1px solid var(--pure-white);
 	}
 
 	a:hover {
