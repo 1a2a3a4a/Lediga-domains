@@ -39,6 +39,7 @@
 	let sortReleaseDateClick = false;
 	let searchQuery = '';
 	let filteredDomains = domains;
+	let pressedLoadMore = false;
 
 	function sortDate() {
 		filteredDomains = sortReleaseDateClick
@@ -61,20 +62,25 @@
 	async function loadMore() {
 		start += 10;
 		end += 10;
+
+		pressedLoadMore = true;
 		const res = await fetch(
 			`/domains.json?startIndex=${start}&endIndex=${end}&searchQuery=${searchQuery}`
 		);
 		if (res.ok) {
 			const data = await res.json();
 			filteredDomains = filteredDomains.concat(data.domains);
-			canLoadMore = data.canLoadMore
+			if (data.domains.length == 0) {
+				canLoadMore = false;
+			}
 		}
 	}
 
 	async function autoComplete() {
 		start = 0;
 		end = 10;
-		if (searchQuery.length > 1) {
+		pressedLoadMore = false;
+		if (searchQuery.length > 0) {
 			const res = await fetch(`/domains/autocomplete.json?searchQuery=${searchQuery}`);
 			if (res.ok) {
 				const data = await res.json();
@@ -150,10 +156,9 @@
 			>
 			<th scope="col"><span>Läs mer om siten</span></th>
 		</tr>
+
 		{#each filteredDomains as domain}
 			{#if domain.name.includes(filterDomain) || filterDomain == 'Alla'}
-				<!-- content here -->
-
 				<tr>
 					<td class="relative">
 						<a href="//{domain.name}" target="_blank">{domain.name}</a>
@@ -168,8 +173,14 @@
 			{/if}
 		{/each}
 	</table>
+	{#if filteredDomains.length == 0}
+		<p>Hittade inte eller kunde inte ladda in data.</p>
+	{/if}
 	{#if canLoadMore && filteredDomains.length > 0}
 		<button class="load-more-button" on:click={loadMore}>Ladda fler</button>
+	{/if}
+	{#if pressedLoadMore && !canLoadMore}
+		<p aria-live="polite">Hittade inte mer data.</p>
 	{/if}
 </div>
 
@@ -239,15 +250,15 @@
 
 	.load-more-button {
 		padding: 0.6rem 1.3rem;
-		font-size:1.2rem;
+		font-size: 1.2rem;
 		font-weight: bold;
+		cursor: pointer;
 	}
 	.load-more-button:hover {
-		background-color:#fff600
+		background-color: #fff600;
 	}
 	.load-more-button:focus {
-		
-		background-color:#fff600;
+		background-color: #fff600;
 	}
 	.load-more-button:hover:focus {
 		text-decoration: underline;
