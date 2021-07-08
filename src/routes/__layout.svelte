@@ -11,7 +11,6 @@
 </main>
 
 <footer>
-	<a href="/">Link</a>
 </footer>
 
 <style>
