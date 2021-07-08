@@ -1,5 +1,4 @@
 <script lang="ts">
-	import logo from './svelte-logo.svg';
 	import { page } from '$app/stores';
 	let path = '';
 	page.subscribe((p) => {
@@ -9,10 +8,6 @@
 
 <header>
 	<a class="skip-to-content-link" href="#main"> Skippa till huvudinnehåll </a>
-
-	<div class="corner">
-		<img src={logo} alt="" />
-	</div>
 
 	<nav aria-label="huvudmeny">
 		<ul>
