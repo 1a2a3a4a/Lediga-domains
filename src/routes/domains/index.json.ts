@@ -4,7 +4,6 @@ export const get = (request) => {
 	const start = request.query.get('startIndex');
 	const end = request.query.get('endIndex');
 	const searchQuery = request.query.get('searchQuery');
-	
 	if (dataCache.domainData.length >= end && start > -1) {
 		let domains = dataCache.domainData;
 		if (searchQuery?.length > 1) {
@@ -16,7 +15,6 @@ export const get = (request) => {
 			status: 200,
 			body: {
 				domains: domains,
-				canLoadMore: end < domains.length
 			}
 		};
 	} else {
