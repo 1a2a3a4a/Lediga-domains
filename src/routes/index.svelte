@@ -168,8 +168,8 @@
 			{/if}
 		{/each}
 	</table>
-	{#if canLoadMore && domains.length > 0}
-		<button on:click={loadMore}>Ladda fler</button>
+	{#if canLoadMore && filteredDomains.length > 0}
+		<button class="load-more-button" on:click={loadMore}>Ladda fler</button>
 	{/if}
 </div>
 
@@ -235,5 +235,21 @@
 	}
 	label {
 		font-size: 1.2rem;
+	}
+
+	.load-more-button {
+		padding: 0.6rem 1.3rem;
+		font-size:1.2rem;
+		font-weight: bold;
+	}
+	.load-more-button:hover {
+		background-color:#fff600
+	}
+	.load-more-button:focus {
+		
+		background-color:#fff600;
+	}
+	.load-more-button:hover:focus {
+		text-decoration: underline;
 	}
 </style>
