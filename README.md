@@ -1,38 +1,9 @@
-# create-svelte
+#Lediga Domains
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+Visar upp alla .se- och .nu-domäner som snart kan bli lediga med data från [inter
+](internetstiftelsen.se)
 
-## Creating a project
+Byggd med SvelteKit.
+Datat hämtas en gång när servern startas och en gång per dag och lagras sedan i minnet som en cache. 
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+Datat till varje sida hämtas genom ett post anrop till https://internetstiftelsen.se/wp-json/iis/v1/free/whois
