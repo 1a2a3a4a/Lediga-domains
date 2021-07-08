@@ -1,10 +1,10 @@
 <script lang="ts">
 	import logo from './svelte-logo.svg';
 	import { page } from '$app/stores';
-	let path = "";
+	let path = '';
 	page.subscribe((p) => {
 		path = p.path;
-	})
+	});
 </script>
 
 <header>
@@ -17,17 +17,21 @@
 	<nav aria-label="huvudmeny">
 		<ul>
 			<li>
-				<a class={path == "/" ? "current" :" "} aria-current={path == "/" ? "page" : "false"} href="/">Hem</a>
+				<a
+					class={path == '/' ? 'current' : ' '}
+					aria-current={path == '/' ? 'page' : 'false'}
+					href="/">Hem</a
+				>
 			</li>
 			<li>
-				<a class={path == "/about" ? "current" :" "} aria-current={path == "/about"  ? "page" : "false"} href="/about">Om webbplatsen</a>
+				<a
+					class={path == '/about' ? 'current' : ' '}
+					aria-current={path == '/about' ? 'page' : 'false'}
+					href="/about">Om webbplatsen</a
+				>
 			</li>
 		</ul>
 	</nav>
-
-	<div class="corner">
-		<!-- TODO put something else here? github link? -->
-	</div>
 </header>
 
 <style>
@@ -50,19 +54,6 @@
 		display: flex;
 	}
 
-	.corner {
-		width: 3em;
-		height: 3em;
-	}
-
-	.corner a {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-	}
-
 	.corner img {
 		width: 2em;
 		height: 2em;
@@ -72,16 +63,6 @@
 	nav {
 		display: flex;
 		justify-content: center;
-	}
-
-	svg {
-		width: 2em;
-		height: 3em;
-		display: block;
-	}
-
-	path {
-		fill: var(--background);
 	}
 
 	ul {
@@ -100,18 +81,6 @@
 		height: 100%;
 	}
 
-	li.active::before {
-		--size: 6px;
-		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-top: var(--size) solid var(--accent-color);
-	}
-
 	nav a {
 		display: flex;
 		height: 100%;
@@ -127,7 +96,6 @@
 		transition: color 0.2s linear;
 	}
 	.current {
-		
 		border-bottom: 1px solid var(--pure-white);
 	}
 
