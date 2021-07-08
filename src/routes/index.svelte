@@ -33,13 +33,12 @@
 	export let domains: DomainData[];
 	export let start: number;
 	export let end: number;
+	let canLoadMore = true;
 	let filterDomain = 'Alla';
 	let sortNameclick = false;
 	let sortReleaseDateClick = false;
 	let searchQuery = '';
 	let filteredDomains = domains;
-	$: filteredDomains =
-		filterDomain == 'Alla' ? domains : domains.filter((x) => x.name.includes(filterDomain));
 
 	function sortDate() {
 		filteredDomains = sortReleaseDateClick
@@ -62,19 +61,24 @@
 	async function loadMore() {
 		start += 10;
 		end += 10;
-		const res = await fetch(`/domains.json?startIndex=${start}&endIndex=${end}`);
+		const res = await fetch(
+			`/domains.json?startIndex=${start}&endIndex=${end}&searchQuery=${searchQuery}`
+		);
 		if (res.ok) {
 			const data = await res.json();
 			filteredDomains = filteredDomains.concat(data);
 		}
 	}
 
-	async function autoComplete(q) {
-		if (q.length > 1) {
-			const res = await fetch(`/domains/autocomplete.json?q=${searchQuery}`);
+	async function autoComplete() {
+		start = 0;
+		end = 10;
+		if (searchQuery.length > 1) {
+			const res = await fetch(`/domains/autocomplete.json?searchQuery=${searchQuery}`);
 			if (res.ok) {
 				const data = await res.json();
-				filteredDomains = data;
+				filteredDomains = data.domains;
+				canLoadMore = data.canLoadMore;
 			}
 		} else {
 			//reset
@@ -96,7 +100,13 @@
 	<div class="options-container">
 		<div class="search-container">
 			<label class="search-label" for="search">Sök på domän</label>
-			<input on:keyup={() => autoComplete(searchQuery)} bind:value={searchQuery} class="search-input" id="search" type="search" />
+			<input
+				on:keyup={() => autoComplete()}
+				bind:value={searchQuery}
+				class="search-input"
+				id="search"
+				type="search"
+			/>
 		</div>
 		<fieldset>
 			<legend>Välj domän filter</legend>
@@ -140,20 +150,26 @@
 			<th scope="col"><span>Läs mer om siten</span></th>
 		</tr>
 		{#each filteredDomains as domain}
-			<tr>
-				<td class="relative">
-					<a href="//{domain.name}" target="_blank">{domain.name}</a>
-				</td>
-				<td>
-					{domain.release_at}
-				</td>
-				<td>
-					<a href="/domain/{domain.name}">Mer info</a>
-				</td>
-			</tr>
+			{#if domain.name.includes(filterDomain) || filterDomain == 'Alla'}
+				<!-- content here -->
+
+				<tr>
+					<td class="relative">
+						<a href="//{domain.name}" target="_blank">{domain.name}</a>
+					</td>
+					<td>
+						{domain.release_at}
+					</td>
+					<td>
+						<a href="/domain/{domain.name}">Mer info</a>
+					</td>
+				</tr>
+			{/if}
 		{/each}
 	</table>
-	<button on:click={loadMore}>Ladda fler</button>
+	{#if canLoadMore && domains.length > 0}
+		<button on:click={loadMore}>Ladda fler</button>
+	{/if}
 </div>
 
 <style>
