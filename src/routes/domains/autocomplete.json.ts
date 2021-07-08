@@ -9,7 +9,7 @@ export const get = (request) => {
 		status: 200,
 		body: {
             domains: sliced,
-            canLoadMore: true
+            canLoadMore: domains.length > 10
         }
 	};
 };

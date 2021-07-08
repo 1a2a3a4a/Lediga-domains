@@ -8,12 +8,12 @@
 			const res = await fetch(`/domains.json?startIndex=${start}&endIndex=${end}`);
 			if (res.ok) {
 				const data = await res.json();
-				if (data.length > 0) {
+				if (data.domains.length > 0) {
 					return {
 						status: 200,
 						maxage: 86400,
 						props: {
-							domains: data,
+							domains: data.domains,
 							start: start,
 							end: end
 						}
@@ -66,7 +66,8 @@
 		);
 		if (res.ok) {
 			const data = await res.json();
-			filteredDomains = filteredDomains.concat(data);
+			filteredDomains = filteredDomains.concat(data.domains);
+			canLoadMore = data.canLoadMore
 		}
 	}
 
