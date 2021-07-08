@@ -1,5 +1,10 @@
 <script lang="ts">
 	import logo from './svelte-logo.svg';
+	import { page } from '$app/stores';
+	let path = "";
+	page.subscribe((p) => {
+		path = p.path;
+	})
 </script>
 
 <header>
@@ -12,10 +17,10 @@
 	<nav aria-label="huvudmeny">
 		<ul>
 			<li>
-				<a href="/">Hem</a>
+				<a aria-current={path == "/" ? "page" : "false"} href="/">Hem</a>
 			</li>
 			<li>
-				<a href="/about">Om webbplatsen</a>
+				<a aria-current={path == "/about"  ? "page" : "false"} href="/about">Om webbplatsen</a>
 			</li>
 		</ul>
 	</nav>
