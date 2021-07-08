@@ -5,7 +5,7 @@
 
 <Header />
 
-<main id="#main">
+<main id="main">
 	<div></div>
 	<slot />
 </main>
