@@ -11,7 +11,7 @@
 				if (data.domains.length > 0) {
 					return {
 						status: 200,
-						maxage: 86400,
+						maxage: 72000,
 						props: {
 							domains: data.domains,
 							start: start,
