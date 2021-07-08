@@ -17,10 +17,10 @@
 	<nav aria-label="huvudmeny">
 		<ul>
 			<li>
-				<a aria-current={path == "/" ? "page" : "false"} href="/">Hem</a>
+				<a class={path == "/" ? "current" :" "} aria-current={path == "/" ? "page" : "false"} href="/">Hem</a>
 			</li>
 			<li>
-				<a aria-current={path == "/about"  ? "page" : "false"} href="/about">Om webbplatsen</a>
+				<a class={path == "/about" ? "current" :" "} aria-current={path == "/about"  ? "page" : "false"} href="/about">Om webbplatsen</a>
 			</li>
 		</ul>
 	</nav>
@@ -125,6 +125,9 @@
 		letter-spacing: 10%;
 		text-decoration: none;
 		transition: color 0.2s linear;
+	}
+	.current {
+		
 		border-bottom: 1px solid var(--pure-white);
 	}
 
