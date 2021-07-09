@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 	import type { DomainData } from '$lib/types';
-	export const prerender = true;
 	const start = 0;
 	const end = 10;
 	export async function load({ page, fetch, session, context }) {
